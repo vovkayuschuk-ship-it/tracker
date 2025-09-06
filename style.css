@@ -34,6 +34,7 @@ button.complete-btn:hover { background-color: #e64a19; }
 button.delete-btn { background-color: #f44336; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
 button.delete-btn:hover { background-color: #da190b; }
 .stats { margin-top: 25px; text-align: center; }
+
 @media(max-width: 500px){
     .add-goal { flex-direction: column; }
     #addGoalBtn { width: 100%; }
