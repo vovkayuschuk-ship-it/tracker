@@ -25,6 +25,15 @@
         <button class="filter-btn" data-filter="active">Незавершені</button>
     </div>
     <ul id="goalList" class="draggable-list"></ul>
+    <template id="subgoalTemplate">
+        <li class="subgoal-item">
+            <span class="subgoal-text"></span>
+            <div>
+                <button class="complete-subgoal-btn">Завершено</button>
+                <button class="delete-subgoal-btn">Видалити</button>
+            </div>
+        </li>
+    </template>
     <div class="stats">
     <!-- <canvas id="progressChart" width="300" height="300"></canvas> -->
         <p>Всього цілей: <span id="totalGoals">0</span></p>
