@@ -1,0 +1,41 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 650px;
+    margin: 30px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+h1 { text-align: center; margin-bottom: 20px; }
+.add-goal { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+#goalInput, #categorySelect { flex: 1; padding: 12px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc; }
+#goalInput:focus { outline: none; border-color: #4caf50; }
+#addGoalBtn { padding: 12px 20px; background-color: #4caf50; color: white; border: none; cursor: pointer; border-radius: 8px; }
+#addGoalBtn:hover { background-color: #45a049; }
+.filters { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+.filter-btn { padding: 8px 15px; border: none; border-radius: 6px; background: #2196f3; color: white; cursor: pointer; }
+.filter-btn:hover { background: #0b7dda; }
+ul { list-style: none; padding: 0; margin: 0; }
+li { display: flex; align-items: center; justify-content: space-between; padding: 12px; margin-bottom: 10px; border-radius: 8px; transition: all 0.3s; background: #f0f0f0; cursor: grab; }
+li.dragging { opacity: 0.5; }
+li.completed { text-decoration: line-through; background: #d4edda; color: #2e7d32; }
+.category-label { font-weight: bold; padding: 2px 8px; border-radius: 6px; color: white; margin-right: 8px; }
+.category-Робота { background-color: #ff9800; }
+.category-Здоров’я { background-color: #4caf50; }
+.category-Особисте { background-color: #2196f3; }
+button.complete-btn { background-color: #ff5722; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-right: 5px; }
+button.complete-btn:hover { background-color: #e64a19; }
+button.delete-btn { background-color: #f44336; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+button.delete-btn:hover { background-color: #da190b; }
+.stats { margin-top: 25px; text-align: center; }
+@media(max-width: 500px){
+    .add-goal { flex-direction: column; }
+    #addGoalBtn { width: 100%; }
+    .filters { flex-direction: column; gap: 5px; }
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Трекер цілей</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Трекер цілей</h1>
+    <div class="add-goal">
+        <input type="text" id="goalInput" placeholder="Нова ціль...">
+        <select id="categorySelect">
+            <option value="Робота">Робота</option>
+            <option value="Здоров’я">Здоров’я</option>
+            <option value="Особисте">Особисте</option>
+        </select>
+        <button id="addGoalBtn">Додати</button>
+    </div>
+    <div class="filters">
+        <button class="filter-btn" data-filter="all">Всі</button>
+        <button class="filter-btn" data-filter="completed">Завершені</button>
+        <button class="filter-btn" data-filter="active">Незавершені</button>
+    </div>
+    <ul id="goalList" class="draggable-list"></ul>
+    <div class="stats">
+        <canvas id="progressChart" width="200" height="200"></canvas>
+        <p>Всього цілей: <span id="totalGoals">0</span></p>
+        <p>Завершено: <span id="completedGoals">0</span></p>
+        <p>Прогрес: <span id="progressPercent">0</span>%</p>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+let goals = JSON.parse(localStorage.getItem('goals')) || [];
+let currentFilter = 'all';
+const goalList = document.getElementById('goalList');
+const goalInput = document.getElementById('goalInput');
+const categorySelect = document.getElementById('categorySelect');
+const addGoalBtn = document.getElementById('addGoalBtn');
+const totalGoals = document.getElementById('totalGoals');
+const completedGoals = document.getElementById('completedGoals');
+const progressPercent = document.getElementById('progressPercent');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const ctx = document.getElementById('progressChart').getContext('2d');
+let chart = new Chart(ctx, { type: 'doughnut', data: { labels:['Завершено','В процесі'], datasets:[{data:[0,0], backgroundColor:['#4caf50','#f44336'], borderWidth:1}] }, options: { responsive:true, plugins:{legend:{position:'bottom'}} } });
+function saveGoals(){ localStorage.setItem('goals', JSON.stringify(goals)); }
+function updateStats(){ const total = goals.length; const completed = goals.filter(g=>g.completed).length; const percent = total===0?0:Math.round((completed/total)*100); totalGoals.textContent=total; completedGoals.textContent=completed; progressPercent.textContent=percent; chart.data.datasets[0].data=[completed,total-completed]; chart.update(); }
+function renderGoals(){ goalList.innerHTML=''; goals.forEach((goal,index)=>{ if(currentFilter==='completed' && !goal.completed) return; if(currentFilter==='active' && goal.completed) return; const li=document.createElement('li'); li.setAttribute('draggable',true); if(goal.completed) li.classList.add('completed'); const categorySpan=document.createElement('span'); categorySpan.textContent=goal.category; categorySpan.classList.add('category-label',`category-${goal.category}`); const textSpan=document.createElement('span'); textSpan.textContent=goal.text; const btnGroup=document.createElement('div'); const completeBtn=document.createElement('button'); completeBtn.textContent=goal.completed?'Відновити':'Завершено'; completeBtn.classList.add('complete-btn'); completeBtn.onclick=()=>{ goals[index].completed=!goals[index].completed; saveGoals(); renderGoals(); updateStats(); }; const deleteBtn=document.createElement('button'); deleteBtn.textContent='Видалити'; deleteBtn.classList.add('delete-btn'); deleteBtn.onclick=()=>{ goals.splice(index,1); saveGoals(); renderGoals(); updateStats(); }; btnGroup.appendChild(completeBtn); btnGroup.appendChild(deleteBtn); li.appendChild(categorySpan); li.appendChild(textSpan); li.appendChild(btnGroup); goalList.appendChild(li); li.addEventListener('dragstart',()=>li.classList.add('dragging')); li.addEventListener('dragend',()=>li.classList.remove('dragging')); }); const draggables=document.querySelectorAll('li'); draggables.forEach(draggable=>{ draggable.addEventListener('dragover',e=>{ e.preventDefault(); const dragging=document.querySelector('.dragging'); if(dragging===draggable) return; const all=[...goalList.children]; const indexDragged=all.indexOf(dragging); const indexOver=all.indexOf(draggable); goalList.insertBefore(dragging,indexDragged<indexOver?draggable.nextSibling:draggable); const temp=goals.splice(indexDragged,1)[0]; goals.splice(indexOver,0,temp); saveGoals(); }); }); }
+addGoalBtn.addEventListener('click',()=>{ const text=goalInput.value.trim(); const category=categorySelect.value; if(text){ goals.push({text,category,completed:false}); saveGoals(); renderGoals(); updateStats(); goalInput.value=''; } });
+goalInput.addEventListener('keypress',(e)=>{ if(e.key==='Enter') addGoalBtn.click(); });
+filterBtns.forEach(btn=>{ btn.addEventListener('click',()=>{ currentFilter=btn.dataset.filter; renderGoals(); }); });
+renderGoals(); updateStats();
